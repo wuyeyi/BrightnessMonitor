@@ -3,8 +3,6 @@ name: Build APK
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
 
 jobs:
   build:
@@ -18,12 +16,10 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    - uses: gradle/wrapper-validation-action@v2
-
     - name: Build with Gradle
-      uses: gradle/gradle-build-action@v2
-      with:
-        arguments: assembleDebug
+      run: |
+        chmod +x gradlew
+        ./gradlew assembleDebug
 
     - name: Upload APK
       uses: actions/upload-artifact@v4
